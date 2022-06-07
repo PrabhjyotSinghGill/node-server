@@ -3,13 +3,17 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Welcome')
 })
 
 app.get('/echo/:para', (req, res) => {
-    res.send('Echo!'+req.params.para)
+    res.send('Echo! '+req.params.para+' '+[1,2,3])
   })
 
+app.get('/dob/:date/:month/:year', (req, res) => {
+    res.send(req.params)
+})
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Listening on port ${port}`)
 })
