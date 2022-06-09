@@ -71,11 +71,18 @@ app.put('/courses/:id', (req,res) =>{
   };
 
   const result = Joi.validate(req.body,schema);
-
+  if(result.error) {
+    res.status(400).send(result.error.details[0].message);
+    return;
+  }
   // UPDATE COURSE
+  course.name = req.body.name;
   // RETURN THE UPDATED COURSE
-
+  res.send(course);
 });
+
+
+
 
 // APP RUNNING ON PORT 3000
 app.listen(port, () => {
