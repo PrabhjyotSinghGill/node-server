@@ -12,7 +12,7 @@ const courses = [
   { id: 5, name: "Theory of Computation" },
   { id: 6, name: "Computer Architecture" },
 ];
-
+// GET METHODS EXPLAINED
 app.get("/", (req, res) => {
   res.send("Welcome");
 });
@@ -35,6 +35,8 @@ app.get("/courses/:id", (req, res) => {
   res.send(course);
 });
 
+
+// POST METHODS EXPLAINED
 app.post('/courses',(req,res)=>{
 
   const schema = {
@@ -55,6 +57,27 @@ app.post('/courses',(req,res)=>{
   res.send(course);
 });
 
+// PUT METHOD
+app.put('/courses/:id', (req,res) =>{
+  // Look for the course
+  const course = courses.find((val) => val.id === parseInt(req.params.id));
+  // IF NOT EXISTING, return 404
+  if (!course) res.status(404).send("Not found!"); // response 404                   
+
+  //VALIDATE
+  // IF INVALID, return 400 -Bad request
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+
+  const result = Joi.validate(req.body,schema);
+
+  // UPDATE COURSE
+  // RETURN THE UPDATED COURSE
+
+});
+
+// APP RUNNING ON PORT 3000
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
